@@ -1,24 +1,23 @@
-import logo from './logo.svg';
+
 import './App.css';
+import TimeLine from "../src/component/TimeLine";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                cacheTime: 1000 * 60 * 5, // 5 minutes
+                staleTime: 1000 * 60 * 2, // 2 minutes
+            },
+        },
+    });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="mx-auto max-w-[1000px] mt-10 mb-10">
+             <TimeLine/>
+        </div>
+      </QueryClientProvider>
   );
 }
 
